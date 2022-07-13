@@ -6,7 +6,7 @@ from iperf_wrapper import iperf
 from balancer_communicator import balancer_communicator
 from apps.apps import watchdog
 from django.conf import settings
-from apps.logger import logger
+from apps import logger
 
 
 @api_view(['GET'])

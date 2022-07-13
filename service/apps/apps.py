@@ -6,7 +6,7 @@ from django.apps import AppConfig
 from iperf_wrapper import iperf
 from watchdog import Watchdog
 from django.conf import settings
-from apps.logger import logger
+from apps import logger
 
 
 watchdog = Watchdog(5)

@@ -31,7 +31,7 @@ To start the server you need to run the command:
 ```
 ALLOWED_HOSTS=127.0.0.1; # Hosts on which you want to start service
 BALANCER_ADDRESS=127.0.0.1:5555;
-BALANCER_BASE_URL=127.0.0.1:5555;
+BALANCER_BASE_URL=/Skoltech_OpenRAN_5G/iperf_load_balancer/0.1.0;
 CONNECTING_TIMEOUT=30;
 DEBUG=True;
 DJANGO_SETTINGS_MODULE=service.settings;
@@ -40,9 +40,8 @@ SECRET_KEY=123;
 SERVICE_IP_ADDRESS=127.0.0.1;
 SERVICE_PORT=5004
 ```
-3. Change host in swagger_client/configuration.py to balancer's hostname
-4. Install everything from Pipfile
-5. Run python
+3. Install everything from Pipfile
+4. Run python
 
 ```
 python3 manage.py runserver HERE_IS_YOUR_HOSTNAME 

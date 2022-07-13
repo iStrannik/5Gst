@@ -2,7 +2,7 @@ import swagger_client
 from swagger_client.rest import ApiException
 from django.conf import settings
 from swagger_client.configuration import Configuration
-from apps.logger import logger
+from apps import logger
 
 
 class BalancerCommunicator:
