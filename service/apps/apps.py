@@ -5,6 +5,9 @@ from balancer_communicator import balancer_communicator
 from django.apps import AppConfig
 from iperf_wrapper import iperf
 from watchdog import Watchdog
+from django.conf import settings
+from apps.logger import logger
+
 
 watchdog = Watchdog(5)
 
@@ -29,9 +32,15 @@ class MyAppConfig(AppConfig):
 
         signal.signal(signal.SIGINT, signal_handler)
 
-        for key, value in balancer_communicator.env_data.items():
-            print(f'{key}: {value}')
+        logger.info(f'Environment settings:\n'
+                    f'SERVICE_IP_ADDRESS: {settings.SERVICE_IP_ADDRESS}\n'
+                    f'BALANCER_ADDRESS: {settings.BALANCER_ADDRESS}\n'
+                    f'BALANCER_BASE_URL: {settings.BALANCER_BASE_URL}\n'
+                    f'IPERF_PORT: {str(settings.IPERF_PORT)}\n'
+                    f'SERVICE_PORT: {str(settings.SERVICE_PORT)}\n'
+                    f'CONNECTING_TIMEOUT: {str(settings.CONNECTING_TIMEOUT)}'
+                    )
 
         global watchdog
-        watchdog = Watchdog(int(balancer_communicator.env_data['CONNECTING_TIMEOUT']), TimeoutHandler)
+        watchdog = Watchdog(settings.CONNECTING_TIMEOUT, TimeoutHandler)
         balancer_communicator.post_to_server()

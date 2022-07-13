@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from iperf_wrapper import iperf
 from balancer_communicator import balancer_communicator
 from apps.apps import watchdog
+from django.conf import settings
+from apps.logger import logger
 
 
 @api_view(['GET'])
@@ -14,14 +16,14 @@ def start_iperf(request: Request):
     if iperf_parameters is not None:
         iperf.iperf_parameters = iperf_parameters
 
-    status = iperf.start(port_iperf=balancer_communicator.env_data['IPERF_PORT'])
+    status = iperf.start(port_iperf=settings.IPERF_PORT)
     if status:
-        print(f"iPerf started with parameters {iperf.iperf_parameters}")
+        logger.info(f'iPerf started with parameters {iperf.iperf_parameters}')
         return Response(data=f"iPerf started with parameters {iperf.iperf_parameters}", status=HTTP_200_OK,
                         content_type="text/html")
 
     iperf.stop()
-    status = iperf.start(port_iperf=balancer_communicator.env_data['IPERF_PORT'])
+    status = iperf.start(port_iperf=settings.IPERF_PORT)
     if status:
         return Response(f"iPerf restarted with parameters {iperf.iperf_parameters}")
 

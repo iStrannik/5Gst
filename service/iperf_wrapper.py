@@ -112,8 +112,6 @@ iperf: IperfWrapper = IperfWrapper(verbose=True)
 if __name__ == "__main__":
     arg_parser = create_arg_parser()
     namespace = arg_parser.parse_args()
-
-    print('Params ' + namespace.parameters)
     iperf_wrapper = IperfWrapper(namespace.parameters, True)
     iperf_wrapper.start(namespace.port)
     try:
